@@ -2,6 +2,7 @@ package com.devmountain.noteApp.services;
 
 import com.devmountain.noteApp.dtos.NoteDto;
 import com.devmountain.noteApp.entities.Note;
+import com.devmountain.noteApp.entities.User;
 import com.devmountain.noteApp.repositories.NoteRepository;
 import com.devmountain.noteApp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class NoteServicelmpl implements NoteService {
         Optional<User> userOptional = userRepository.findById(userId);
         Note note = new Note(noteDto);
         userOptional.ifPresent(note::setUser);
-        noteRepository.saveAllAndFlush(note);
+        noteRepository.saveAndFlush(note);
     }
 
     @Override

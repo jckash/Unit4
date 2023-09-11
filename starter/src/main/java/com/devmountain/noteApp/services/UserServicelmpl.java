@@ -19,28 +19,31 @@ public class UserServicelmpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-@Override
-@Transactional
-    public ArrayList<String> addUser(UserDto userDto){
+    @Override
+    @Transactional
+    public ArrayList<String> addUser(UserDto userDto) {
         ArrayList<String> response = new ArrayList<>();
-        User user = new User(UserDto);
+        User user = new User(userDto);
         userRepository.saveAndFlush(user);
-        response.add("User Added Successfully");
+        response.add("http://localhost:8080/login.html");
         return response;
     }
 
     @Override
     @Transactional
-    public ArrayList<String> userLogin(UserDto userDto){
-    ArrayList<String> response = new ArrayList<>();
+    public ArrayList<String> userLogin(UserDto userDto) {
+        ArrayList<String> response = new ArrayList<>();
         Optional<User> userOptional = userRepository.findbyUsername(userDto.getUsername());
-        if (userOptional.isPresent()){
-            if (passwordEncoder.matches(userDto.getPassword(), userOptional.get().getPassword())){
-                response.add("User Login Successful");
+        if (userOptional.isPresent()) {
+            if (passwordEncoder.matches(userDto.getPassword(), userOptional.get().getPassword())) {
+                response.add("http://localhost:8080/home.html");
                 response.add(String.valueOf(userOptional.get().getId()));
             } else {
                 response.add("Username or password incorrect");
             }
-        } else { response.add("Username or password incorrect");
-    } return response;
+        } else {
+            response.add("Username or password incorrect");
+        }
+        return response;
+    }
 }

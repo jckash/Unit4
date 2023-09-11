@@ -18,7 +18,7 @@ public class NoteController {
 
 
     @GetMapping("/user/{userId}")
-    public List<NoteDto> getNotesByUser(@PathVariable) Long userId){
+    public List<NoteDto> getNotesByUser(@PathVariable Long userId){
     return noteService.getAllNotesByUserId(userId);
     }
 
